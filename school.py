@@ -28,38 +28,13 @@ class SchoolClass:
     def add_student(self, student: Student):
         self._students.append(student)
 
+    def rank_matter_1(self) -> list:
+        """Retourne les étudiants triés du meilleur au moins bon en matière 1."""
+        return sorted(self._students, key=lambda s: s.grade1, reverse=True)
+
     def __repr__(self):
         return f"SchoolClass({self._students!r})"
-```
 
----
-
-### 5. Committer le fichier
-
-Descendez en bas de la page jusqu'à la section **"Commit new file"** :
-
-- Dans le premier champ, tapez le message :
-```
-feat: declare Student and SchoolClass base classes
-```
-- Laissez **"Commit directly to the main branch"** coché
-- Cliquez sur le bouton vert **"Commit new file"**
-
----
-
-### 6. Récupérer le lien vers ce commit précis
-
-Une fois le commit créé :
-
-1. Cliquez sur l'**historique des commits** (icône 🕐 ou lien **"X commits"** en haut à droite du dépôt)
-2. Cliquez sur le commit que vous venez de faire
-3. Vous êtes sur une URL de ce type :
-```
-https://github.com/richardcedric436-dev/epsi-paris-i1-dev-arce842-tp-2026/commit/abc1234
-```
-4. Pour avoir le lien vers **le fichier à ce commit précis**, modifiez l'URL ainsi :
-```
-https://github.com/richardcedric436-dev/epsi-paris-i1-dev-arce842-tp-2026/blob/abc1234/school.py
 
 if __name__ == "__main__":
     school_class = SchoolClass()
@@ -67,4 +42,15 @@ if __name__ == "__main__":
     school_class.add_student(Student('A', 8, 2, 17))
     school_class.add_student(Student('V', 9, 14, 14))
 
-    print(school_class)
+    print("Classement matière 1 :")
+    for student in school_class.rank_matter_1():
+        print(f"  {student.name} : {student.grade1}")
+```
+
+---
+
+### 3. Committer en bas de page
+
+Message :
+```
+feat: add rank_matter_1 method to SchoolClass
