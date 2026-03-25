@@ -1,3 +1,6 @@
+from collections.abc import Iterable, Iterator
+
+
 class Student:
     """Représente un étudiant avec 3 notes dans 3 matières."""
 
@@ -19,7 +22,25 @@ class Student:
         )
 
 
-class SchoolClass:
+class Matter1Iterator(Iterator):
+    """Itérateur qui parcourt les étudiants du meilleur au moins bon en matière 1."""
+
+    def __init__(self, students: list):
+        self._students = sorted(students, key=lambda s: s.grade1, reverse=True)
+        self._index = 0
+
+    def __next__(self) -> Student:
+        if self._index >= len(self._students):
+            raise StopIteration
+        student = self._students[self._index]
+        self._index += 1
+        return student
+
+    def __iter__(self):
+        return self
+
+
+class SchoolClass(Iterable):
     """Représente une salle de classe contenant plusieurs étudiants."""
 
     def __init__(self):
@@ -28,16 +49,17 @@ class SchoolClass:
     def add_student(self, student: Student):
         self._students.append(student)
 
+    def __iter__(self) -> Matter1Iterator:
+        """Renvoie un itérateur triant les étudiants par matière 1 (décroissant)."""
+        return Matter1Iterator(self._students)
+
     def rank_matter_1(self) -> list:
-        """Retourne les étudiants triés du meilleur au moins bon en matière 1."""
         return sorted(self._students, key=lambda s: s.grade1, reverse=True)
 
     def rank_matter_2(self) -> list:
-        """Retourne les étudiants triés du meilleur au moins bon en matière 2."""
         return sorted(self._students, key=lambda s: s.grade2, reverse=True)
 
     def rank_matter_3(self) -> list:
-        """Retourne les étudiants triés du meilleur au moins bon en matière 3."""
         return sorted(self._students, key=lambda s: s.grade3, reverse=True)
 
     def __repr__(self):
@@ -61,40 +83,34 @@ if __name__ == "__main__":
     print("Classement matière 3 :")
     for student in school_class.rank_matter_3():
         print(f"  {student.name} : {student.grade3}")
+
+    print("Itération via __iter__ (matière 1) :")
+    for student in school_class:
+        print(f"  {student.name} : {student.grade1}")
 ```
 
 ---
 
-### 2. Résultat attendu à l'exécution
+### Résultat attendu
 ```
-Classement matière 1 :
+Itération via __iter__ (matière 1) :
   J : 10
   V : 9
   A : 8
-Classement matière 2 :
-  V : 14
-  J : 12
-  A : 2
-Classement matière 3 :
-  A : 17
-  V : 14
-  J : 13
 ```
 
 ---
 
-### 3. Committer sur GitHub
+### Committer sur GitHub
 
 Message du commit :
 ```
-feat: add rank_matter_2 and rank_matter_3 methods to SchoolClass
+feat: add Matter1Iterator and implement __iter__ in SchoolClass
 ```
 → **"Commit changes"** ✅
 
 ---
 
-### 4. Récupérer votre lien
-
-Dans l'historique 🕐 → cliquez sur ce commit → copiez le hash :
+### Votre lien
 ```
 https://github.com/richardcedric436-dev/epsi-paris-i1-dev-arce842-tp-2026/blob/<HASH>/school.py
