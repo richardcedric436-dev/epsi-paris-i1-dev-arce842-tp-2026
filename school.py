@@ -40,77 +40,37 @@ class Matter1Iterator(Iterator):
         return self
 
 
-class SchoolClass(Iterable):
-    """Représente une salle de classe contenant plusieurs étudiants."""
+class Matter2Iterator(Iterator):
+    """Itérateur qui parcourt les étudiants du meilleur au moins bon en matière 2."""
 
-    def __init__(self):
-        self._students: list[Student] = []
+    def __init__(self, students: list):
+        self._students = sorted(students, key=lambda s: s.grade2, reverse=True)
+        self._index = 0
 
-    def add_student(self, student: Student):
-        self._students.append(student)
+    def __next__(self) -> Student:
+        if self._index >= len(self._students):
+            raise StopIteration
+        student = self._students[self._index]
+        self._index += 1
+        return student
 
-    def __iter__(self) -> Matter1Iterator:
-        """Renvoie un itérateur triant les étudiants par matière 1 (décroissant)."""
-        return Matter1Iterator(self._students)
-
-    def rank_matter_1(self) -> list:
-        return sorted(self._students, key=lambda s: s.grade1, reverse=True)
-
-    def rank_matter_2(self) -> list:
-        return sorted(self._students, key=lambda s: s.grade2, reverse=True)
-
-    def rank_matter_3(self) -> list:
-        return sorted(self._students, key=lambda s: s.grade3, reverse=True)
-
-    def __repr__(self):
-        return f"SchoolClass({self._students!r})"
+    def __iter__(self):
+        return self
 
 
-if __name__ == "__main__":
-    school_class = SchoolClass()
-    school_class.add_student(Student('J', 10, 12, 13))
-    school_class.add_student(Student('A', 8, 2, 17))
-    school_class.add_student(Student('V', 9, 14, 14))
+class Matter3Iterator(Iterator):
+    """Itérateur qui parcourt les étudiants du meilleur au moins bon en matière 3."""
 
-    print("Classement matière 1 :")
-    for student in school_class.rank_matter_1():
-        print(f"  {student.name} : {student.grade1}")
+    def __init__(self, students: list):
+        self._students = sorted(students, key=lambda s: s.grade3, reverse=True)
+        self._index = 0
 
-    print("Classement matière 2 :")
-    for student in school_class.rank_matter_2():
-        print(f"  {student.name} : {student.grade2}")
+    def __next__(self) -> Student:
+        if self._index >= len(self._students):
+            raise StopIteration
+        student = self._students[self._index]
+        self._index += 1
+        return student
 
-    print("Classement matière 3 :")
-    for student in school_class.rank_matter_3():
-        print(f"  {student.name} : {student.grade3}")
-
-    print("Itération via __iter__ (matière 1) :")
-    for student in school_class:
-        print(f"  {student.name} : {student.grade1}")
-```
-
----
-
-### Résultat attendu
-```
-Itération via __iter__ (matière 1) :
-  J : 10
-  V : 9
-  A : 8
-```
-
----
-
-### Committer sur GitHub
-
-Message du commit :
-```
-feat: add Matter1Iterator and implement __iter__ in SchoolClass
-```
-→ **"Commit changes"** ✅
-
----
-
-### Votre lien
-```
-https://github.com/richardcedric436-dev/epsi-paris-i1-dev-arce842-tp-2026/blob/<HASH>/school.py
+    def __iter__(self):
+        retu
