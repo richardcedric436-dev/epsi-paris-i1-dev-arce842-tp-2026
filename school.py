@@ -60,3 +60,11 @@ https://github.com/richardcedric436-dev/epsi-paris-i1-dev-arce842-tp-2026/commit
 4. Pour avoir le lien vers **le fichier à ce commit précis**, modifiez l'URL ainsi :
 ```
 https://github.com/richardcedric436-dev/epsi-paris-i1-dev-arce842-tp-2026/blob/abc1234/school.py
+
+if __name__ == "__main__":
+    school_class = SchoolClass()
+    school_class.add_student(Student('J', 10, 12, 13))
+    school_class.add_student(Student('A', 8, 2, 17))
+    school_class.add_student(Student('V', 9, 14, 14))
+
+    print(school_class)
