@@ -1,18 +1,19 @@
-def add_subject_with_iterator(subject_name, default_grade=0):
-    def decorator(cls):
-        original_init = cls.__init__
+class Classroom:
+    _instance = None  # Stocke l'unique instance
 
-        def new_init(self, name, grades):
-            original_init(self, name, grades)
-            self.grades[subject_name] = default_grade
+    def __new__(cls, *args, **kwargs):
+        if cls._instance is None:
+            cls._instance = super(Classroom, cls).__new__(cls)
+        return cls._instance
 
-        # Ajout d'une méthode pour récupérer un itérateur sur la matière
-        def get_subject_iterator(self):
-            return iter([self.grades[subject_name]])
+    def __init__(self):
+        # Évite de réinitialiser à chaque appel
+        if not hasattr(self, "students"):
+            self.students = []
 
-        cls.__init__ = new_init
-        cls.get_subject_iterator = get_subject_iterator
+    def add_student(self, student):
+        self.students.append(student)
 
-        return cls
-
-    return decorator
+    def show_students(self):
+        for s in self.students:
+            print(s)
