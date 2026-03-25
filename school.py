@@ -32,6 +32,14 @@ class SchoolClass:
         """Retourne les étudiants triés du meilleur au moins bon en matière 1."""
         return sorted(self._students, key=lambda s: s.grade1, reverse=True)
 
+    def rank_matter_2(self) -> list:
+        """Retourne les étudiants triés du meilleur au moins bon en matière 2."""
+        return sorted(self._students, key=lambda s: s.grade2, reverse=True)
+
+    def rank_matter_3(self) -> list:
+        """Retourne les étudiants triés du meilleur au moins bon en matière 3."""
+        return sorted(self._students, key=lambda s: s.grade3, reverse=True)
+
     def __repr__(self):
         return f"SchoolClass({self._students!r})"
 
@@ -45,12 +53,48 @@ if __name__ == "__main__":
     print("Classement matière 1 :")
     for student in school_class.rank_matter_1():
         print(f"  {student.name} : {student.grade1}")
+
+    print("Classement matière 2 :")
+    for student in school_class.rank_matter_2():
+        print(f"  {student.name} : {student.grade2}")
+
+    print("Classement matière 3 :")
+    for student in school_class.rank_matter_3():
+        print(f"  {student.name} : {student.grade3}")
 ```
 
 ---
 
-### 3. Committer en bas de page
-
-Message :
+### 2. Résultat attendu à l'exécution
 ```
-feat: add rank_matter_1 method to SchoolClass
+Classement matière 1 :
+  J : 10
+  V : 9
+  A : 8
+Classement matière 2 :
+  V : 14
+  J : 12
+  A : 2
+Classement matière 3 :
+  A : 17
+  V : 14
+  J : 13
+```
+
+---
+
+### 3. Committer sur GitHub
+
+Message du commit :
+```
+feat: add rank_matter_2 and rank_matter_3 methods to SchoolClass
+```
+→ **"Commit changes"** ✅
+
+---
+
+### 4. Récupérer votre lien
+
+Dans l'historique 🕐 → cliquez sur ce commit → copiez le hash :
+```
+https://github.com/richardcedric436-dev/epsi-paris-i1-dev-arce842-tp-2026/blob/<HASH>/school.py
